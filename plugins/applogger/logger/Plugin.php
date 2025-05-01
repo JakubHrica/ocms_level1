@@ -22,65 +22,15 @@ class Plugin extends PluginBase
             'icon' => 'icon-leaf'
         ];
     }
-
-    /**
-     * register method, called when the plugin is first registered.
-     */
-    public function register()
-    {
-        //
-    }
-
-    /**
-     * boot method, called right before the request route.
-     */
-    public function boot()
-    {
-        require_once (__DIR__.'/routes.php');
-    }
-
-    /**
-     * registerComponents used by the frontend.
-     */
-    public function registerComponents()
-    {
-        return []; // Remove this line to activate
-
-        return [
-            'AppLogger\Logger\Components\MyComponent' => 'myComponent',
-        ];
-    }
-
-    /**
-     * registerPermissions used by the backend.
-     */
-    public function registerPermissions()
-    {
-        return []; // Remove this line to activate
-
-        return [
-            'applogger.logger.some_permission' => [
-                'tab' => 'Logger',
-                'label' => 'Some permission'
-            ],
-        ];
-    }
-
-    /**
-     * registerNavigation used by the backend.
-     */
-    public function registerNavigation()
-    {
-        return []; // Remove this line to activate
-
-        return [
-            'logger' => [
-                'label' => 'Logger',
-                'url' => Backend::url('applogger/logger/mycontroller'),
-                'icon' => 'icon-leaf',
-                'permissions' => ['applogger.logger.*'],
-                'order' => 500,
-            ],
-        ];
-    }
 }
+
+// Code review by Tobias [2025-04-30]:
+// Request POST/logs zmeniť na tak, aby sa posielal len name a time ------------------------------- NOT DONE
+// Zmeniť "return response()->json($logs);" na "return $logs;" ------------------------------------ done
+// Z logs/{id} odstrániť tú vec na chcekovanie, či log existuje, lebo findOrFail to robí sama ----- done
+// version.yaml má dve verzie, ale v prvej sa nič nedeje, takže ju treba zmazať ------------------- done
+//
+// Tipy:
+// Namiesto request()->all() používať post() ------------------------------------------------------ done
+// public $timestamps nemusí byť nastavený na true, lebo to je defaultné nastavenie --------------- done
+// V plugin.php stačí mať funkciu pluignDetails(), ostatné sú zbytočné (nič nerobia) -------------- done

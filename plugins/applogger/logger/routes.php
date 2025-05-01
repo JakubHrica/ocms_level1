@@ -11,7 +11,7 @@ Route::get('/logs', function() {
     $logs = Log::all();
 
     // Vrátiť logy ako JSON odpoveď
-    return response()->json($logs);
+    return $logs;
 });
 
 // Route pre získanie logu podľa ID
@@ -19,20 +19,15 @@ Route::get('/logs/{id}', function($id) {
     // Získať log podľa ID z databázy
     $log = Log::findOrFail($id);
 
-    // Skontrolovať, či log existuje
-    if (!$log) {
-        return response()->json(['message' => 'Log not found'], 404);
-    }
-
     // Vrátiť log ako JSON odpoveď
-    return response()->json($log);
+    return $log;
 });
 
 // Route pre vytvorenie nového logu
 Route::post('/logs', function() {
     $log = new Log();
 
-    $data = request()->all();
+    $data = post();
 
     $log->fill($data);
 

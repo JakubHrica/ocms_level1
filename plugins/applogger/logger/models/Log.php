@@ -27,6 +27,4 @@ class Log extends Model
     ];
 
     protected $fillable = ['arrival', 'name', 'late'];
-
-    public $timestamps = true;
 }
